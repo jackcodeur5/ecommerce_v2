@@ -1,0 +1,53 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="product-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Produits correspondants </h2>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="tab-single">
+            <div class="row">
+                {% for produit in produits %}
+                            
+
+                            <div class="card shadow  col-xl-4 ">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <a href="{% url 'detail' produit.id %}">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem; height: 12rem;" 
+                                        src="{{produit.image.url}}" >
+                                        </a>
+                                    </div> 
+                                     <div class="product-content">
+                                        <h3><a href="{% url 'detail' produit.id %}">{{produit.nom}}</a></h3>
+                                        <div class="product-price">
+                                            <span style="font-size: 18px;">{{produit.prix_achat}} FCFA</span><br>
+                                            <!-- <span class="mt-4" style="font-size: 15px; font: weight 10px; color: rgb(15, 65, 104);">Stock: {{produit.stock}}</span> -->
+                                        </div>
+                                    </div>
+                                    <!-- <div class="product-price">
+                                            <span>{{produit.description}} </span>
+                                        </div>
+                                    </div> -->
+                                    <a data-product="{{produit.id}}"  class="btn btn-secondary add-btn update-cart mt-4"  ><i class="fa fa-plus" style="color:aliceblue; margin-right: 5px;"></i><span style="color: aliceblue;">Ajouter</span></a>
+            
+                                </div>
+                            </div>
+                            
+                {% empty %}
+                <h3>Aucun resultat</h3>
+            
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

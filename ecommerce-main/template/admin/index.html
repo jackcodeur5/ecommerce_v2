@@ -1,0 +1,79 @@
+
+{% extends 'admin/main.html' %}
+{% block content %}
+<!--Dashboard widget-->
+<div class="mt-1 mb-3 button-container">
+    <div class="row pl-0">
+    
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+        {% if cartItems == 0 %}
+            <a href="{% url 'home' %}">
+            <div class="bg-white border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong> commander </strong></h3>
+                        <p><small class="text-muted bc-description"></small></p>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+            </a>
+        {% else %}
+        <a href="{% url 'checkout' %}">
+            <div class="bg-white border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong> Continuer </strong></h3>
+                        <p><small class="text-muted bc-description"></small></p>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+            </a>
+        {% endif %}
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+          <a href="{% url 'commande_index' %}">
+            <div class="bg-white border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong>{{nombre}} commandes </strong></h3>
+                        <p><small class="text-muted bc-description"></small></p>
+                    </div>                  
+                </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+            <a href="#">
+            <div class="bg-theme border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-white">
+                        <i class="fa fa-cubes text-theme"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong>Devenir vendeur</strong></h3>
+                        <p><small class="bc-description text-white"></small></p>
+                    </div>
+                </div>
+            </div>
+          </a>
+        </div>
+    </div>
+</div>
+{{commande}}
+<!--/Dashboard widget-->
+{% endblock %}

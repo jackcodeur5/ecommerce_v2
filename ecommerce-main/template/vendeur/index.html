@@ -1,0 +1,76 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    p span{
+        font-size: 18px;
+    }
+</style>
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="contact-head">
+            <div style="border: 3px solid rgb(173, 171, 171); background-color: rgb(234, 240, 245);">
+               <div class="row mb-4 ">
+                
+                <div class="col-lg-6" style="padding-left: 30%; padding-top: 5%;">
+                    <img src="{% static 'images/icone_vendeur_big.png' %}" alt="">
+                </div>
+                   
+                <div class="col-lg-6 col-12" style=" padding-top: 3%; padding-left: 5%;">
+                    <h4>Devenir commercial et gagner beaucoup d'argent</h4>
+                    <p class="mt-5">
+                        <span class="font-italic font-weight-bold"> 1. </span>
+                        <span> Inscrivez vous sur  <a style="color: #a036ef;">Eshop</a> si ce n'est pas fait. </span>
+                    </p>
+    
+    
+                    <p class="mt-2">
+                     <span class="font-italic font-weight-bold"> 2. </span>
+                     <span> Contactez Eshop pour devenir Commercial.</span>
+                    </p>
+    
+                     <p class="mt-2">
+                        <span class="font-italic font-weight-bold"> 3. </span>
+                        <span> Une fois votre demande acceptée, vous pouvez partager nos affiches directement de <a style="color: #a036ef;">l'application</a> et gagnez une commission sur chaque produit commandé.  </span>
+                    </p>
+                    
+               <p class="mt-4 text-center">
+                <a href="#" target="_blank" class="btn text-center p-3" style="background-color: rgb(234, 240, 245);">   
+                    <span style="color: black;"> CONTACTEZ NOUS MAINTENANT : </span> <span style="color: black;">  +228 70236201  </span>
+                </a>
+            </p>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var vendeur = document.getElementById('boutton_vendeur');
+    vendeur.addEventListener('click', function (e) {
+        console.log('user:', user)
+        var vendeur = user
+        var url = '/vendeur/vendeur'
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ 'vendeur': vendeur })
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log('data:', data)
+                window.location.href = '/vendeur/home'
+                // location.reload()
+            })
+    })
+</script>
+{% endblock %}

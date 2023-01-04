@@ -1,0 +1,76 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+ <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+	<!-- Page Heading -->
+	<!-- <h1 class="h3 mb-2 text-gray-800">Catégories</h1> -->
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h4 class="m-0 font-weight-bold text-primary">Catégories</h4>
+		</div>
+		<a href="{% url 'dashboard-categorie-create' %} " class="btn btn-primary btn-icon-split col-md-2 mt-3 ml-3">
+			<span class="text">Nouvelle Catégorie</span>
+		</a>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table " id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Libellé</th>
+							<th>Date de création</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						{% for categorie in categories %}
+						<tr>
+							<td>{{categorie.id}}</td>
+							<td>{{categorie.nom}}</td>
+							<td>{{categorie.date_creation}} 18/12/2022</td>
+							<td>
+								<a href="{% url 'dashboard-categorie-update' categorie.id %}" class="btn btn-secondary btn-circle btn-sm">
+								<i class="fas fa-file-alt text-white"></i>
+								</a>
+								<a href="#" class="btn btn-danger btn-circle btn-sm"data-toggle="modal" data-target="#orderUpdate{{categorie.id}}">
+									<i class="fas fa-trash"></i>
+								</a>
+						  </td>
+						</tr>
+						{% endfor %}
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	{% for categorie in categories %}
+<div class="modal fade" id="orderUpdate{{categorie.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous vraiment supprimer la categorie#{{categorie.id}}? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer " >
+                <form action="{% url 'dashboard-categorie-delete' categorie.id %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn  btn-danger " type="submit" name="confirmer"  value="OUI">
+                </form> 
+           
+                <button type="button" style="margin-left: 50px; margin-right: 150px;" class="btn btn-secondary " id="pop_info" data-dismiss="modal">NON</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+<!-- /.container-fluid -->
+{% endblock %}

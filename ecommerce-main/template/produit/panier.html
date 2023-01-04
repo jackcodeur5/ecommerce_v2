@@ -1,0 +1,173 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="{% url 'home' %}">Accueil<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a>Panier</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+        
+<!-- Shopping Cart -->
+<div class="shopping-cart section" >
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-12 col-12 col-xs-12">
+                <!-- Shopping Summery -->
+                {% if cartItems != 0 %}
+                <table class="table shopping-summery col-xs-10">
+                   
+                    <thead>
+                        <tr class="main-hading">
+                            <th>PRODUIT</th>
+                            <th>NOM</th>
+                            <th class="text-center">PRIX UNITAIRE</th>
+                            <th class="text-center">QUANTITE</th>
+                            <th class="text-center">TOTAL</th> 
+                            
+                        </tr>
+                    </thead>
+                   
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td class="image" data-title="PRODUIT"><img src="{{item.produit.image.url}}" alt="#"></td>
+                            <td class="product-des" data-title="NOM">
+                                <p class="product-name"><a href="#">{{item.produit.nom}}</a></p>
+   
+                            </td>
+                            <td class="price" data-title="PRIX UNITAIRE"><span>{{item.produit.prix_achat}} FCFA</span></td>
+                            <td class="qty" data-title="QUANTITE"><!-- Input Order -->
+                                <div class="input-group">
+                                    <div class="button minus">
+                                        <button type="button" class="btn btn-primary  update-cart" data-product={{item.produit.id}} data-action = "remove"  >
+                                            <i class="ti-minus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="input-number pt-2">{{item.qte_produit}}</div>
+                                   
+                                    <!-- <input type="text"  class="input-number"  value="{{item.qte_produit}}"> -->
+                                    <div class="button plus">
+                                        <button type="button" class="btn btn-primary btn-number update-cart" data-product={{item.produit.id}} data-action = "add"  data-type="plus" >
+                                            <i class="ti-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                   
+                                <!--/ End Input Order -->
+                            </td>
+                            <td class="total-amount" data-title="Total"><span>{{item.get_total}} FCFA</span></td>
+                            
+                        </tr>
+                        {% endfor %}
+                       
+                    </tbody>
+                    {% endif %}
+
+                </table>
+                <!--/ End Shopping Summery -->
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-12">
+                <!-- Total Amount -->
+                <div class="total-amount">
+                    <div class="row">
+                        
+                        <div class="col-lg-12 col-md-12 col-12">
+                            <div class="right">
+                                {% if cartItems != 0 %}
+                                <ul>
+                                    <li>Total produits<span style="padding-right: 60px;">{{commande.get_cart_items}}</span></li>
+                                    <li>Total<span>{{commande.get_cart_total}} FCFA</span></li>
+                                    
+                                </ul>
+                                <div class="button5">
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'checkout' %}" class="btn " style="background-color: #333;">Finaliser la commande</a>
+                                    {% else %}
+                                    <a href="{% url 'inscription' %}" class="btn " style="background-color: #333;">Finaliser la commande</a>
+                                    {% endif %}
+                                   
+                                    <a href="{% url 'home' %}" class="btn " style="background-color: #333;">Continuer les Achats</a>
+                                </div>
+                                {% else %}
+
+                                <div class="card position-relative">
+                                    <div class="card-header ">
+                                        <h6 class="m-0 font-weight-bold text-primary">Panier</h6>
+                                    </div>
+                                    <div class="card-body">
+                                       
+                                        
+                                        <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                            <a class="navbar-brand" href="#">Votre panier est vide</a>
+                                            <!-- <ul class="navbar-nav ml-auto">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right animated--fade-in" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                    </div>
+                                                </li>
+                                            </ul> -->
+                                        </nav>
+                                    
+                                        <!-- <div class="small mb-1">Dropdown Button Example:</div> -->
+                                        <div class="dropdown mb-4 ">
+                                            
+                                                <a href="{% url 'home' %}" class="btn btn-dark" style="margin-left: 25%; color: aliceblue;" >Commencer vos Achats</a>
+                                            
+                                            
+                                        </div>
+                                        <!-- <p class="mb-0 small">Note: This utility animates the CSS opacity property, meaning
+                                            it will override any existing opacity on an element being animated!</p> -->
+                                    </div>
+                                </div>
+<!-- 
+                                <tbody >
+                                    <tr>
+                                        <div style="width: 40%; margin-left: 20%; text-align: center;">
+                                            <td class="price" data-title="Price" >
+                                                <span style="font-size: 25px;">Votre panier est</span><br>
+                                                <span style="font-size: 25px;">Vide</span>
+                                                 <p class="product-name" style="font-size: 20px;" ></p>
+                    
+                                             </td>
+                                        </div>
+                                        
+                                    </tr>
+                                </tbody>
+                                <div class="button5 " style="width: 40%; margin-left: 20%;">
+                                    <a href="{% url 'home' %}" class="btn">Commencer vos Achats</a>
+                                </div> -->
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Total Amount -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ End Shopping Cart -->
+        
+
+
+{% endblock %}

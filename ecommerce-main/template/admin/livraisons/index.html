@@ -1,0 +1,86 @@
+{% extends 'admin/main.html' %}
+{% block content %}
+<style>
+    #pop_info{
+        margin-right: 50%;
+
+    }
+   
+</style>
+
+<div class="mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <!--Order Listing-->
+    <div class="product-list">
+        
+        <div class="row border-bottom mb-4">
+            <div class="col-sm-8 pt-2"><h6 class="mb-4 bc-header">Liste des livraisons</h6></div>
+            <div class="col-sm-4 text-right pb-3">
+                
+                <a href="{% url 'livraison_create' %} "><button class="btn btn-secondary"> Ajouter livraison</button></a>
+               
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="table-responsive product-list">
+            
+            <table class="table table-bordered table-striped mt-0" id="productList">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Date création</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livraison in livraisons %}
+                        <td>{{livraison.id}}</td>
+                        <td class="align-middle">
+                            {{livraison.nom_destinataire}}
+                        </td>
+    
+                         <td></td>
+                        <td class="align-middle text-center">
+                           <a href="{% url 'livraison_edit' livraison.id %} "> <button class="btn btn-theme" data-toggle="modal" data-target="#orderInfo">
+                                <i class="fa fa-eye"></i>
+                            </button></a>
+                            <a href="{% url 'livraison_update' livraison.id %}"><button class="btn btn-success" data-toggle="modal" data-target="#orderUpdate"><i class="fa fa-pencil"></i></button></a>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#orderUpdate{{livraison.id}} "><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        </div>
+    </div>
+    <!--/Order Listing-->
+    <!--Order Update Modal-->
+    {% for livraison in livraisons %}
+    <div class="modal fade" id="orderUpdate{{livraison.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous vraiment supprimer le livraison#{{livraison.id}}? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'livraison_delete' livraison.id %}" method="POST">
+                        {% csrf_token %}
+                        <input class="btn  btn-danger" type="submit" name="confirmer"  value="OUI">
+                    </form> 
+               
+                    <button type="button" class="btn btn-secondary" id="pop_info" data-dismiss="modal">NON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!--Order Update Modal-->
+
+
+   
+</div>
+{% endblock %}

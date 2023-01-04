@@ -1,0 +1,69 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<!-- Start Contact -->
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+            <div class="contact-head">
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="form-main">
+                            <div class="title">
+                                
+                                <h3>Effectuer votre paiement</h3>
+                            </div>
+                            <form class="form" method="post" action="https://paygateglobal.com/api/v1/pay">
+                                <div class="row">
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-group">
+                                            <label>Numéro<span>*</span></label>
+                                            <input name="phone_number" type="number" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-group">
+                                            <label>Montant<span>*</span></label>
+                                            <input name="amount" type="number" placeholder="">
+                                        </div>
+                                    </div>
+                                    
+                                        
+                                    <div class="form-group">
+                                        <label>Type<span>*</span></label>
+                                    </div>
+                                        <select name="network" id="network" class="col-lg-12 col-12">
+                                            <option value="FLOOZ">FLOOZ</option>
+                                            <option value="TMONEY">TMONEY</option>
+                                        </select>
+                                        	
+                                    
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-group">
+                                            
+                                            <input name="auth_token" type="hidden" placeholder="" value="{{auth_token}}">
+                                        </div>	
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-group">
+                                            
+                                            <input name="identifier" type="hidden" placeholder="" value="100">
+                                        </div>	
+                                    </div>
+                                    
+                                   
+                                    <div class="col-6 col-12">
+                                        <div class="form-group button">
+                                            <button type="submit" class="btn ">Envoyer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+</section>
+<!--/ End Contact -->
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% load static %}
+<!-- Start Footer Area -->
+<footer class="footer">
+    <!-- Footer Top -->
+    <div class="footer-top section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer about">
+                        <div class="logo">
+                            <a href="{% url 'home'%}"><img src="{% static 'images/logo2.png' %}" alt="#"></a>
+                        </div>
+                        <p class="text">Eshop est un site de vente en ligne des objets électroménagers. C'est une plateforme permetant à tout vendeur de l'électroménager de faire couler sa marchandise.</p>
+                        
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer links">
+                        <h4>Informations</h4>
+                        <ul style="color: honeydew;">
+                            <li>A propos</li>
+                            <li>Termes & Conditions</li>
+                            <li>Contactez Nous</li> 
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer links">
+                        <h4>Service Client</h4>
+                        <ul>
+                            <li><a href="#">Methode de paiement</a></li>
+                            <li><a href="#">Remboursement</a></li>
+                            <li><a href="#">Garantie</a></li>
+                            <li><a href="#">Livraison</a></li>
+                            
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer social">
+                        <h4>Nous joindre</h4>
+                        <!-- Single Widget -->
+                        <div class="contact">
+                            <ul>
+                                <li>Numéro: +228 70236201</li>
+                                <li>Lomé - Togo</li>
+                                <li>eshop@gmail.com</li>
+                                
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                        <ul>
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-flickr"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Top -->
+    <div class="copyright">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="left">
+                            {% now "Y" as current_year %}
+                           <p>Copyright © {{current_year}}   -  Tout droit réservé.</p>
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="right">
+                            <img src="{% static 'images/payments.png' %}" alt="#">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /End Footer Area -->

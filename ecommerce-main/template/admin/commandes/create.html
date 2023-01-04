@@ -1,0 +1,37 @@
+{% extends 'admin/main.html' %}
+{% block content %}
+
+<div class="col-sm-9 col-xs-12 col-lg-12 content pt-6 pl-0">
+    <h5 class="mb-0" ><strong>Créer une commande</strong></h5>
+    <a href="{% url 'commande_index' %} " id="retour" title="retourner"> <i class="fa fa-mail-reply-all" ></i></span></a>
+    
+    <div class="row mt-6">
+        <div class="col-sm-12">
+             <!--Validation types using Form-validator.js-->
+             <div class="mt-1 mb-4 p-3 button-container bg-white border shadow-sm">
+                <h6 class="mb-5 mt-3">Renseigner le formulaire </h6>
+                <p class="mb-2"></p>
+
+                <form action="" id="validation_style" class="mt-6" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for fields in form %}
+                    <div class="form-group row">
+                        <label for="Required1" class="col-sm-3">{{fields.label_tag}} </label>
+                        <div class="col-sm-9" id="in_class">
+                            {{fields}}
+                            <p>{{fields.errors}} </p>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Créer</button>
+                    </div>
+                </form>
+
+            </div>
+            <!--/Validation types using Form-validator.js-->
+        </div>
+    </div>
+</div>
+{% endblock %}

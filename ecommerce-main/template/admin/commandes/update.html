@@ -1,0 +1,51 @@
+{% extends 'admin/main.html' %}
+{% block content %}
+<style>
+#in_class input{
+    width: 100%;
+    height: 80%;
+}
+#in_class select {
+    width: 100%;
+    height: 100%;
+}
+#retour{
+    margin-left: 85%;
+    font-size: 30px;
+}
+</style>
+
+<div class="col-sm-9 col-xs-12 col-lg-12 content pt-6 pl-0">
+    <h5 class="mb-0" ><strong>Modifier commande#{{commande.id}} </strong></h5>
+    <a href="{% url 'commande_index' %} " id="retour" title="retourner"> <i class="fa fa-mail-reply-all" ></i></span></a>
+    
+    <div class="row mt-6">
+        <div class="col-sm-12">
+             <!--Validation types using Form-validator.js-->
+             <div class="mt-1 mb-4 p-3 button-container bg-white border shadow-sm">
+                <h6 class="mb-5 mt-3">Renseigner le formulaire </h6>
+                <p class="mb-2"></p>
+
+                <form id="validation_style" class="mt-6" action="" method="POST">
+                    {% csrf_token %}
+                    {% for fields in form %}
+                    <div class="form-group row">
+                        <label for="Required1" class="col-sm-3">{{fields.label_tag}} </label>
+                        <div class="col-sm-9" id="in_class">
+                            {{fields}}
+                            <p>{{fields.errors}} </p>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </form>
+
+            </div>
+            <!--/Validation types using Form-validator.js-->
+        </div>
+    </div>
+</div>
+{% endblock %}

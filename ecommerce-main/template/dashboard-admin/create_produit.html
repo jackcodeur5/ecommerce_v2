@@ -1,0 +1,35 @@
+{% extends 'dashboard-admin/main.html' %}
+{% block title %} Ajouter un produit {% endblock%}
+{% block content %}
+<style>
+#formulaire{
+ margin-left: 200px;
+ margin-right: 200px;
+}
+#formulaire input{
+margin-right: 20px;
+width: 100%;
+}
+#formulaire select{
+margin-right: 20px;
+width: 100%;
+}
+
+</style>
+<div class="col-md-12 mt-4">
+    <div class="border bg-white p-3">
+        <h4>Renseigner les champs</h4>
+        <hr>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for fields in form %}
+            <div class="form-group" id="formulaire" >
+                {{fields.label_tag}} <br>
+                {{fields}}
+            </div>
+           {% endfor %}
+            <input class="btn btn-success btn-block" type="submit" value="Add Product">
+        </form>
+    </div>
+</div>
+{% endblock %}

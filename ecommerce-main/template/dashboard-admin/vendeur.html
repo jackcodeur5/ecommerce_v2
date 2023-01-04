@@ -1,0 +1,104 @@
+{% extends 'dashboard-admin/main.html' %}
+{% block title %} Vendeurs{% endblock%}
+{% block content %}
+<!--Table-->
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-12">
+            <table class="table bg-white">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Addresse</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vendeur in vendeurs %}
+                    <tr>
+                        <th scope="row">{{vendeur.id}}</th>
+                        <td>{{vendeur.nom}}</td>
+                        <td>{{vendeur.prenom}}</td>
+                        <td>{{vendeur.quartier}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateEtat{{vendeur.id}}">View</a>
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletevendeur{{vendeur.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% for vendeur in vendeurs %}
+<div class="modal fade" id="deletevendeur{{vendeur.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous vraiment supprimer la vendeur#{{vendeur.id}}? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer " >
+                <form action="{% url 'dashboard_delete_vendeur' vendeur.id %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn  btn-danger " type="submit" name="confirmer"  value="OUI">
+                </form> 
+           
+                <button type="button" style="margin-left: 50px; margin-right: 150px;" class="btn btn-secondary " id="pop_info" data-dismiss="modal">NON</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for vendeur in vendeurs %}
+<div class="modal fade" id="updateEtat{{vendeur.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Détail du vendeur#{{vendeur.id}} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer " >
+                
+                <div class="col-md-12">
+                    <table class="table bg-white">
+                        <thead class="bg-info">
+                            <tr class="text-white">
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Addresse</th>
+                                <th scope="col">Numero</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                            <tr>
+                                <th scope="row">{{vendeur.nom}}</th>
+                                <td>{{vendeur.prenom}}</td>
+                                <td>{{vendeur.email}}</td>
+                                <td>{{vendeur.quartier}},{{vendeur.rue}} </td>
+                                <td>
+                                    {{vendeur.numero}}
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

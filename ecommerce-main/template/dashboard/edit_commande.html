@@ -1,0 +1,64 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+ <!-- Begin Page Content -->
+ <div class="container-fluid">
+<div class="row">
+
+	<div class="col-xl-8 col-lg-7">
+
+		<!-- Area Chart -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<a href="{% url 'dashboard-commande' %}"><h6 class="m-0 font-weight-bold text-primary">Retourner</h6></a>
+			</div>
+			<div class="card-body">
+				Transaction_id: {{commande.transaction_id}} <br>
+                Client: {{commande.client}} <br>
+                Etat: {{commande.etat_commande}} <br>
+
+                <table class="table bg-white mt-4">
+                    <thead class="bg-secondary">
+                        <tr class="text-white">
+                            
+                            <th scope="col">Produit</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Prix Unitaire</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            
+                            <td>{{item.produit.nom}}</td>
+                            <td>{{item.qte_produit}}</td>
+                            <td>{{item.produit.prix_achat}} Fcfa</td>
+                            <td>{{item.get_total}} Fcfa</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class=" mt-4">
+                    <h5>Nombre de produit: {{commande.get_cart_items}} </h5>
+                    <h5>Total: {{commande.get_cart_total}} Fcfa</h5>
+                </div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Donut Chart -->
+	<!-- <div class="col-xl-2 col-lg-2">
+		<div class="card shadow mb-4"> -->
+			<!-- Card Header - Dropdown -->
+			<!-- <div class="card-header ">
+				<a href="{% url 'dashboard-commande' %}"><h6 class="m-0 font-weight-bold text-primary">Retourner</h6></a>
+			</div> -->
+			<!-- Card Body -->
+			
+		<!-- </div>
+	</div> -->
+</div>
+</div>
+{% endblock %}

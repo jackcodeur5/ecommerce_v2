@@ -1,0 +1,145 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+{% for message in messages %}
+{% if cartItems != 0 %}
+<div class="breadcrumbs mt-2 mb-2" style="background-color: rgb(156, 154, 147);">
+    <div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="bread-inner" style="text-align: center;">
+					<ul class="bread-list">
+						<a href="{% url 'checkout' %} "><p id="info_danger" style="color: green; font-size: 20px;"><i class="fa fa-warning">Continuer votre commande</i> </p></a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endfor %}
+
+<!-- Start Most Popular -->
+<div class="product-area most-popular section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Nouveautés</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="owl-carousel popular-slider">
+                    <!-- Start Single Product -->
+                    {% for produit in produits %}
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="{% url 'detail' produit.id %}">
+                                <img class="default-img" src="{{ produit.image.url }}" style="width: 10rem; height: 10rem;" alt="#">
+                                <img class="hover-img" src="{{ produit.image.url }}" style="width: 10rem; height: 10rem;" alt="#">
+                                
+                            </a>
+                            <div class="button-head">
+                                <div class="product-action-2">
+                                    <a data-product="{{produit.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart" ><i class="fa fa-plus" style="font-size: 15px; margin-right: 5px;"></i> <span style="">Ajouter</span></a>
+                                    <a title="aperçu" href="{% url 'detail' produit.id %}"><i class=" ti-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3><a href="{% url 'detail' produit.id %}">{{produit.nom}}</a></h3>
+                            <div class="product-price">
+                                
+                                <span>{{produit.prix_achat}} FCFA</span>
+                            </div>
+                            
+                        </div>
+                        <div class="product-action-2">
+                            <span style="font-weight: 20px;">Stock: {{produit.stock}} </span>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Most Popular Area -->
+
+<!-- Start Product Area -->
+<div class="product-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                            <div class="col-12">
+                                <div class="section-title">
+                                    <h2>Les plus populaires</h2>
+                                </div>
+                            </div>
+                </div>
+                <div class="row">
+                    {% for repassage in repassages %}
+                    <div class="card shadow  col-md-4 mr-4">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <a href="{% url 'detail' repassage.id %}">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem; height: 12rem;" 
+                                src="{{repassage.image.url}}" >
+                                </a>
+                            </div> 
+                            <div class="product-content">
+                                <h3><strong><a href="{% url 'detail' repassage.id %}" style="font-size: 20px;">{{repassage.nom}}</a></strong></h3>
+                                <div class="product-price">
+                                    <span style="font-size: 20px; font: weight 10px;">{{repassage.prix_achat}} FCFA</span><br>
+                                    <span class="mt-4" style="font-size: 20px; font: weight 10px; color: rgb(15, 65, 104);">Stock: {{repassage.stock}}</span>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <div class="product-price">
+                                    <span>{{repassage.description}} </span>
+                                </div>
+                            </div>
+                            <a data-product="{{repassage.id}}" data-action="add" class="btn btn-dark add-btn update-cart mt-4"  ><i class="fa fa-plus" style="color:aliceblue; margin-right: 5px;"></i><span style="color: aliceblue;">Ajouter</span></a>
+                        </div>
+                    </div>
+                    {% endfor  %}
+
+                            <!-- {% for repassage in repassages %}
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="{% url 'detail' repassage.id %}">
+                                            <img class="default-img" src="{{repassage.image.url}}" alt="#">
+                                            <img class="hover-img" src="{{repassage.image.url}}" alt="#">
+                                        </a>
+                                        
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="{% url 'detail' repassage.id %}" style="font-size: 20px;">{{repassage.nom}}</a></h3>
+                                        <div class="product-price">
+                                            <span style="font-size: 20px; font: weight 10px;">{{repassage.prix_achat}} Fcfa</span><br>
+                                            <span class="mt-4" style="font-size: 20px; font: weight 10px; color: rgb(15, 65, 104);">Stock: {{repassage.stock}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-price">
+                                            <span>{{repassage.description}} </span>
+                                        </div>
+                                    </div>
+                                    <a data-product="{{repassage.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart mt-4"  ><i class="fa fa-plus" style="color:aliceblue; margin-right: 5px;"></i><span style="color: aliceblue;">Ajouter</span></a>
+                                </div>
+                            </div>
+                            {% endfor %} -->
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Product Area -->
+{% endblock %}

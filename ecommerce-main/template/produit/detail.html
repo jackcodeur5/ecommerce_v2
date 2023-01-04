@@ -1,0 +1,120 @@
+{% load static %}
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ecommerce</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <!-- CSS -->
+    <link href="{% static 'css/style2.css' %}" rel="stylesheet">
+    <meta name="robots" content="noindex,follow" />
+
+  </head>
+
+  <body>
+    <main class="container">
+
+      <!-- Left Column / Headphones Image -->
+      <div class="left-column">
+        <img data-image="red" class="active" src="{{ produit.image.url }}" alt="" width="80" height="200">
+      </div>
+
+
+      <!-- Right Column -->
+      <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+          <span>{{produit.categorie}}</span>
+          <h1>{{ produit.nom }}</h1>
+          <p>Description</p>
+          <p>{{ produit.description }}</p>
+          
+          <h2>Marque: {{produit.marque}}</h2>
+        </div>
+        <!-- Product Pricing -->
+        <div class="product-price">
+            <span>{{produit.prix_achat}} Fcfa</span>
+            <a href="#" class="cart-btn">Acheter</a>
+          </div>
+        <!-- Product Configuration -->
+        <div class="product-configuration">
+
+          <!-- Product Color -->
+         
+
+          <!-- Cable Configuration -->
+          <div class="cable-config">
+
+            <div class="cable-choose">
+              <a href="/"><button>Retourner</button></a>
+             
+              <a href="#"><button>Voir les autres produits</button></a>
+            </div>
+
+            
+          </div>
+        </div>
+
+        
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>
+
+<div class="col-lg-8 col-md-7 col-12">
+  <div class="search-bar-top">
+      <div class="search-bar">
+          <select>
+              <option selected="selected">Catégories</option>
+              <option>watch</option>
+              <option>mobile</option>
+              <option>kid’s item</option>
+          </select>
+          <form>
+              <input name="search" placeholder="Chercher un produit....." type="search">
+              <button class="btnn"><i class="ti-search"></i></button>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+  <script type="text/javascript">
+  console.log('test micro');
+  if(localStorage.getItem('panier') == null){
+	  var panier = {};
+  }else{
+   panier = JSON.parse(localStorage.getItem('panier'));
+  }
+  $(document).on('click', '.ted', function(){
+	  console.log('ajouter');
+	  var item_id = this.id.toString();
+	  console.log(item_id);
+	  if(panier[item_id] != undefined){
+		  quantite = panier[item_id][0] + 1;
+		  panier[item_id][0] = quantite;
+		  panier[item_id][2] += parseFloat(document.getElementById("prix"+item_id).innerHTML);
+	  }else{
+		  quantite = 1;
+		  nom = document.getElementById("aa"+item_id).innerHTML;
+          prix = parseFloat(document.getElementById("prix"+item_id).innerHTML);
+		  panier[item_id] = [quantite, nom, prix];
+		  
+
+	  }
+	  console.log(panier);
+	  localStorage.setItem('panier', JSON.stringify(panier));
+	  console.log(Object.keys(panier).length);
+  });
+
+  </script>
+</html>

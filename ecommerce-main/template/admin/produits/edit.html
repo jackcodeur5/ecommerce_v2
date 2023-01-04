@@ -1,0 +1,65 @@
+{% extends 'admin/main.html' %}
+{% block content %}
+<style>
+    #in_class input{
+        width: 100%;
+        height: 100%;
+    }
+    #in_class select {
+        width: 100%;
+        height: 100%;
+    }
+    #retour1{
+        margin-left: 85%;
+        font-size: 30px;
+    }
+    </style>
+<div class="mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <!--Order Listing-->
+    <div class="product-list">
+        
+        <div class="row border-bottom mb-4">
+            <div class="col-sm-8 pt-2"><h6 class="mb-4 bc-header">Produit#{{produit.id}}</h6></div>
+            <div class="col-sm-4 text-right pb-3">
+                <a href="{% url 'produit_index' %} " id="retour1" title="retourner"><i class="fa fa-mail-reply-all"></i></a>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="table-responsive product-list">
+            
+            <table class="table table-bordered table-striped mt-0" id="productList">
+                <thead>
+                    <tr>
+                        <th>image</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Vendeurs</th>
+                        <th>Description</th>
+                        <th>Date création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                        <td><img src="{{produit.image.url}} " alt="" width="100px"></td>
+                        <td class="align-middle">
+                            {{produit.nom}}
+                        </td>
+                        <td class="align-middle">{{produit.prix_achat}} Fcfa</td>
+                        <td class="align-middle"><span "class="badge badge-warning"">{% for vendeur in produit.vendeur %}{{vendeur}}{% endfor %} </span></td>
+                        <td class="align-middle text-center">
+                            {{produit.description}}  
+                        </td>
+                        <td>{{produit.date_creation|date:'d-m-Y H:i'}}</td>
+                    </tr>
+                   
+            </table>
+        </div>
+    </div>
+    <!--/Order Listing-->
+
+
+   
+</div>
+{% endblock %}

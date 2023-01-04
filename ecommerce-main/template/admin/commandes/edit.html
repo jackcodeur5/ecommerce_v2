@@ -1,0 +1,94 @@
+{% extends 'admin/main.html' %}
+{% block content %}
+<style>
+    #in_class input{
+        width: 100%;
+        height: 100%;
+    }
+    #in_class select {
+        width: 100%;
+        height: 100%;
+    }
+    #retour1{
+        margin-left: 85%;
+        font-size: 30px;
+    }
+    </style>
+<div class="mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <!--Order Listing-->
+    <div class="product-list">
+        
+        <div class="row border-bottom mb-4">
+            <div class="col-sm-8 pt-2"><h6 class="mb-4 bc-header">Commande#{{commande.id}}</h6>
+               <h6 class="mb-4 bc-header"> Transaction_id: {{commande.transaction_id}} </h6>
+                <h6 class="mb-4 bc-header"> Client: {{commande.client.nom}}</h6> 
+                <h6 class="mb-4 bc-header"> Etat: {{commande.etat_commande}}</h6> 
+            </div>
+            <div class="col-sm-4 text-right pb-3">
+                <a href="{% url 'commande_index' %} " id="retour1" title="retourner"><i class="fa fa-mail-reply-all"></i></a>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="modal-body">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="row">Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td scope="row">{{item.produit.nom}}</td>
+                        <td>{{item.qte_produit}}</td>
+                        <td>{{item.produit.prix_achat}} Fcfa</td>
+                        <td>{{item.get_total}} FCFA</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="text-right mt-4 p-4">
+                <p><strong>Nombre de produit: {{commande.get_cart_items}}</strong></p>
+                <p><strong></strong></p>
+                <p><span></span></p>
+                <h4 class="mt-2"><strong>Total: {{commande.get_cart_total}} FCFA</strong></h4>
+            </div>
+        </div>
+    </div>
+    <!--/Order Listing-->
+    <div class="modal-body">
+        <h4 class="mb-4">Information sur la livraison</h4>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="row">Nom dest.</th>
+                    <th>Prénom dest.</th>
+                    <th>Email dest.</th>
+                    <th>Numero dest.</th>
+                    <th>Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for livraison in livraisons %}
+                <tr>
+                    <td scope="row">{{livraison.nom_destinataire}}</td>
+                    <td>{{livraison.prenom_destinataire}}</td>
+                    <td>{{livraison.email}}</td>
+                    <td>{{livraison.numero}}</td>
+                    <td>{{livraison.destination}}</td>
+                </tr>
+             {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+   
+</div>
+{% endblock %}

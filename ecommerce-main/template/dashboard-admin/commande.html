@@ -1,0 +1,84 @@
+{% extends 'dashboard-admin/main.html' %}
+{% block title %} Commandes{% endblock%}
+{% block content %}
+ <!--Table-->
+ {{form}}
+
+        <div class="col-md-12 mt-3">
+            <table class="table bg-white">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Etat commande</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for commande in commandes %}
+                    <tr>
+                        <th scope="row">{{commande.id}}</th>
+                        <td>{{commande.client}}</td>
+                        <td><a class="btn {% if commande.etat_commande == 'non livré' %}btn-secondary{% else %}btn-success {% endif %} btn-sm mb-2" data-toggle="modal" data-target="#updateEtat{{commande.id}}"> {{commande.etat_commande}}</a></td>
+                        <td>{{commande.get_cart_total}} Fcfa</td>
+                        <td>
+                            <a class="btn btn-info btn-sm mb-2" href="{% url 'dashboard_edit_commande' commande.id %} ">View</a>
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#orderUpdate{{commande.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+   
+        {% for commande in commandes %}
+        <div class="modal fade" id="orderUpdate{{commande.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous vraiment supprimer la commande#{{commande.id}}? </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer " >
+                        <form action="{% url 'dashboard_delete_commande' commande.id %}" method="POST">
+                            {% csrf_token %}
+                            <input class="btn  btn-danger " type="submit" name="confirmer"  value="OUI">
+                        </form> 
+                   
+                        <button type="button" style="margin-left: 50px; margin-right: 150px;" class="btn btn-secondary " id="pop_info" data-dismiss="modal">NON</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for commande in commandes %}
+        <div class="modal fade" id="updateEtat{{commande.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier l'etat de  la commande#{{commande.id}} </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer " >
+                        <form action="{% url 'dashboard_update_commande' commande.id %}" method="POST" style="margin-left: 200px; margin-right: 150px;">
+                            {% csrf_token %}
+                            <select name="etat" id="etat">
+                                <option value="non livré">non livré</option>
+                                <option value="livré">livré</option>
+                            </select>
+                            <input class="btn bnt-md btn-success mt-4 " type="submit" name="confirmer"  value="Modifier">
+                        </form> 
+                   
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}

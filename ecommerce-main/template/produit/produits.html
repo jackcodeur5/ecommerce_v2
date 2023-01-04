@@ -1,0 +1,149 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="row ml-4 mt-4 mr-4">
+
+    <div class="col-xl-3 md-2 col-lg-2">
+
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Catégories</h6>
+            </div>
+            <div class="card-body">
+                {% for categorie in categories %}
+                <a href="{% url 'categorie' categorie.id %}"  class="navbar-brand ">{{categorie.nom}}</a><br>
+                {% endfor %}
+                
+                <!-- <div class="chart-area">
+                    <div class="chartjs-size-monitor">
+                        <div class="chartjs-size-monitor-expand">
+                            <div class="">
+                                <p>repassage</p>
+                                <p>repassage</p>
+                                <p>repassage</p>
+                                <p>repassage</p>
+                            </div>
+                        </div>
+                        <div class="chartjs-size-monitor-shrink">
+                                <div class="">
+
+                                </div>
+                            </div>
+                        </div>
+                    <canvas id="myAreaChart" style="display: block; width: 529px; height: 160px;" width="529" height="160" class="chartjs-render-monitor"></canvas>
+                </div> -->
+                
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-9 md-8 col-lg-8">
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Produits</h6>
+            </div>
+            <div class="card-body">
+                <div class="row col-md-12" >
+                {% for produit in produits %}
+                <div class="card shadow  col-xl-4 ">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a href="{% url 'detail' produit.id %}">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem; height: 12rem;" 
+                            src="{{produit.image.url}}" >
+                            </a>
+                        </div> 
+                        <div class="product-content">
+                            <h3><a href="{% url 'detail' produit.id %}">{{produit.nom}}</a></h3>
+                            <div class="product-price">
+                                <span style="font-size: 18px;">{{produit.prix_achat}} FCFA</span><br>
+                               <span class="mt-4" style="font-size: 15px; font: weight 10px; color: rgb(15, 65, 104);">Stock: {{produit.stock}}</span> 
+                            </div>
+                        </div>
+                      <!-- <div class="product-price">
+                                <span>{{produit.description}} </span>
+                            </div>
+                        </div>  -->
+                        <a href="#" data-product="{{produit.id}}" data-action="add" class="btn btn-secondary add-btn update-cart mt-4"  ><i class="fa fa-plus" style="color:aliceblue; margin-right: 5px;"></i><span style="color: aliceblue;">Ajouter</span></a>
+
+                    </div>
+                </div>
+                {% endfor  %}
+            </div>
+               
+        </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- <div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, officia distinctio commodi quibusdam dolorem sed suscipit blanditiis repellat, provident facere nisi laudantium molestias tempora culpa soluta, consectetur ut saepe ipsum!</p>
+        </div>
+        <div class="col-lg-4 col-md-10 col-sm-4 col-xs-8">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, officia distinctio commodi quibusdam dolorem sed suscipit blanditiis repellat, provident facere nisi laudantium molestias tempora culpa soluta, consectetur ut saepe ipsum!</p>
+              </div>
+
+    </div>
+
+</div> -->
+
+{% for categorie in categories %}
+<!-- <div class=" mt-4 mb-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-2">
+                <div class="section-title">
+                    <h2>{{categorie.nom}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for produit in produits %}
+            {% if produit.categorie.nom == categorie.nom %}
+            <div class=" col-lg-4 col-12">
+                
+                    
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="{% url 'detail' produit.id %}">
+                                <img class="default-img" src="{{ produit.image.url }}" width="200"  height="100" alt="#">
+                                <img class="hover-img" src="{{ produit.image.url }}" width="200"  height="100" alt="#">
+                                
+                            </a>
+                            
+                        </div>
+                 
+                        <div class="product-content">
+                            <h3><a href="{% url 'detail' produit.id %}" style="font-size: 20px;">{{produit.nom}}</a></h3>
+                            <div class="product-price" >
+                                
+                                <span style="font-size: 20px;">{{produit.prix_achat}} Fcfa</span><br>
+                                <span class="mt-4" style="font-size: 20px; font: weight 10px; color: rgb(15, 65, 104);">Stock: {{produit.stock}}</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-price">
+                                <span>{{produit.description}} </span>
+                            </div>
+                        </div>
+                        <a data-product="{{produit.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart mt-4"  ><i class="fa fa-plus" style="color:aliceblue; margin-right: 5px;"></i><span style="color: aliceblue;">Ajouter</span></a>
+                               
+                    </div>
+                   
+                 
+               
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div> -->
+{% endfor %}
+
+<!--/ End Single Widget -->
+{% endblock %}
